@@ -1,0 +1,38 @@
+{
+  "domain": {
+    "name": "AguasDeCordoba",
+    "version": "1",
+    "chainId": 1338,
+    "verifyingContract": "0x0041dc481cf88ef6202d4e86c69f99d9fe2b77f2"
+  },
+  "request": {
+    "batch": {
+      "batchId": "batch-example-001",
+      "edar": "la-golondrina",
+      "dateIso": "2026-04-16",
+      "polielectrolito": "1234",
+      "materiaOrganicaBp": "5678",
+      "vehiclesRoot": "0x64928617eb389aa8219b2fed21786a1de10ffaeabfbcf887f650f4341989f49e",
+      "submittedAtIso": "2026-04-16T08:00:00+00:00"
+    },
+    "vehicles": [
+      {
+        "vehicleId": "truck-01",
+        "timeIso": "2026-04-16T09:00:00+00:00",
+        "weightKg": "1200"
+      },
+      {
+        "vehicleId": "truck-02",
+        "timeIso": "2026-04-16T10:00:00+00:00",
+        "weightKg": "950"
+      },
+      {
+        "vehicleId": "truck-03",
+        "timeIso": "2026-04-16T11:30:00+00:00",
+        "weightKg": "1500"
+      }
+    ]
+  },
+  "signature": "0x3431a65924dd2b379e1f622a9700d68d51bba53d7720ea084e7aa118cfe4b8815174ffbb88eddf6632c6a60ad1269761db7d91325780cbd8d030c39cdecbb7501c",
+  "signerAddress": "0x90F79bf6EB2c4f870365E785982E1f101E93b906"
+}

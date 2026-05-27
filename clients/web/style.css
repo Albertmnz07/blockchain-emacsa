@@ -1,0 +1,644 @@
+/* ═══════════════════════════════════════════════════════════
+   Pesaje de camión — EDAR EMACSA
+   Estilo industrial · alto contraste · mobile-first
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Variables ─────────────────────────────────────────── */
+:root {
+  /* Colores */
+  --c-fondo:         #0a1628;
+  --c-fondo-panel:   #0f1e38;
+  --c-fondo-tarjeta: #162540;
+  --c-borde:         #1e3456;
+  --c-borde-activo:  #f5a623;
+
+  --c-texto:         #e8edf5;
+  --c-texto-dim:     #8fa3c0;
+  --c-texto-label:   #a8bdd4;
+
+  --c-primario:      #f5a623;
+  --c-primario-dark: #c4811a;
+  --c-primario-txt:  #0a1628;
+
+  --c-secundario:    #1e3456;
+  --c-secundario-h:  #264573;
+
+  --c-ok:            #22c55e;
+  --c-ok-fondo:      #0d2e1a;
+  --c-error:         #ef4444;
+  --c-error-fondo:   #2d0f0f;
+  --c-aviso:         #f59e0b;
+  --c-aviso-fondo:   #2d1f07;
+
+  --c-seleccionado:  #f5a623;
+
+  /* Tipografía */
+  --f-display: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+  --f-cuerpo:  'Barlow', 'Arial', sans-serif;
+
+  /* Espaciado */
+  --gap:    1rem;
+  --gap-lg: 1.5rem;
+  --radio:  0.5rem;
+
+  /* Tamaños táctiles mínimos */
+  --btn-h:  4rem;
+  --btn-h-lg: 5rem;
+}
+
+/* ── Reset y base ───────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--f-cuerpo);
+  background: var(--c-fondo);
+  color: var(--c-texto);
+  font-size: 18px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Importar fuente Barlow */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap');
+
+/* ── Pantallas ──────────────────────────────────────────── */
+.pantalla {
+  display: none;
+  flex-direction: column;
+  min-height: 100dvh;
+  padding: var(--gap);
+  gap: var(--gap);
+}
+
+.pantalla.activa {
+  display: flex;
+}
+
+/* ── Pantalla INICIO ────────────────────────────────────── */
+#pantalla-inicio {
+  justify-content: space-between;
+  background:
+    radial-gradient(ellipse at 50% 0%, #1a3060 0%, transparent 60%),
+    var(--c-fondo);
+}
+
+.cabecera {
+  padding-top: env(safe-area-inset-top, 1rem);
+  text-align: center;
+}
+
+.logo-emacsa {
+  font-family: var(--f-display);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  color: var(--c-primario);
+  text-transform: uppercase;
+}
+
+.subtitulo {
+  font-size: 0.75rem;
+  color: var(--c-texto-dim);
+  letter-spacing: 0.15em;
+  margin-top: 0.25rem;
+}
+
+.contenido-centro {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.icono-camion {
+  font-size: 5rem;
+  filter: drop-shadow(0 0 1.5rem #f5a62360);
+}
+
+.titulo-principal {
+  font-family: var(--f-display);
+  font-size: 3.5rem;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--c-texto);
+}
+
+.acciones-inicio {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-bottom: env(safe-area-inset-bottom, 1rem);
+}
+
+/* ── Barra de navegación ────────────────────────────────── */
+.barra-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: env(safe-area-inset-top, 0);
+  border-bottom: 1px solid var(--c-borde);
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.btn-volver {
+  background: var(--c-secundario);
+  border: none;
+  color: var(--c-texto);
+  font-size: 1.5rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radio);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.btn-volver:active {
+  background: var(--c-secundario-h);
+}
+
+.paso-titulo {
+  font-family: var(--f-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  flex: 1;
+}
+
+.paso-num {
+  font-size: 0.8rem;
+  color: var(--c-texto-dim);
+  white-space: nowrap;
+}
+
+/* ── Instrucción ────────────────────────────────────────── */
+.instruccion {
+  font-size: 1rem;
+  color: var(--c-texto-label);
+  background: var(--c-fondo-panel);
+  border-left: 3px solid var(--c-primario);
+  padding: 0.75rem 1rem;
+  border-radius: 0 var(--radio) var(--radio) 0;
+}
+
+/* ── Lista de camiones ──────────────────────────────────── */
+.lista-camiones {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tarjeta-camion {
+  background: var(--c-fondo-tarjeta);
+  border: 2px solid var(--c-borde);
+  border-radius: var(--radio);
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  min-height: var(--btn-h);
+  user-select: none;
+}
+
+.tarjeta-camion:active {
+  background: #1c2e50;
+}
+
+.tarjeta-camion.seleccionado {
+  border-color: var(--c-seleccionado);
+  background: #1e2c15;
+}
+
+.tarjeta-matricula {
+  font-family: var(--f-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--c-texto);
+}
+
+.tarjeta-tara {
+  font-size: 0.85rem;
+  color: var(--c-texto-dim);
+  text-align: right;
+}
+
+.tarjeta-check {
+  font-size: 1.5rem;
+  display: none;
+  color: var(--c-ok);
+}
+
+.tarjeta-camion.seleccionado .tarjeta-check {
+  display: block;
+}
+
+/* ── Acciones selección camión ──────────────────────────── */
+.acciones-seleccion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-bottom: env(safe-area-inset-bottom, 0.5rem);
+}
+
+.fila-botones {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.fila-botones .btn {
+  flex: 1;
+}
+
+/* ── Formularios ────────────────────────────────────────── */
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.campo-label {
+  font-family: var(--f-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--c-texto-label);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.campo-input {
+  background: var(--c-fondo-panel);
+  border: 2px solid var(--c-borde);
+  border-radius: var(--radio);
+  color: var(--c-texto);
+  font-family: var(--f-display);
+  font-size: 2rem;
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  height: var(--btn-h-lg);
+  transition: border-color 0.15s;
+  -webkit-appearance: none;
+}
+
+.campo-input:focus {
+  outline: none;
+  border-color: var(--c-primario);
+}
+
+.campo-numerico {
+  font-size: 2.5rem;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+/* Ocultar flechas en número */
+.campo-numerico::-webkit-outer-spin-button,
+.campo-numerico::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.campo-numerico[type=number] {
+  -moz-appearance: textfield;
+}
+
+.campo-error {
+  color: var(--c-error);
+  font-size: 0.9rem;
+  padding: 0.4rem 0.75rem;
+  background: var(--c-error-fondo);
+  border-radius: var(--radio);
+  border-left: 3px solid var(--c-error);
+}
+
+.campo-info {
+  color: var(--c-aviso);
+  font-size: 0.9rem;
+  padding: 0.4rem 0.75rem;
+  background: var(--c-aviso-fondo);
+  border-radius: var(--radio);
+}
+
+/* ── Pantalla báscula ───────────────────────────────────── */
+.panel-bascula {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  background: var(--c-fondo-panel);
+  border: 1px solid var(--c-borde);
+  border-radius: 0.75rem;
+  padding: 2rem 1rem;
+}
+
+.bascula-estado {
+  font-family: var(--f-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--c-texto-label);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.peso-display {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+#bascula-peso-valor {
+  font-family: var(--f-display);
+  font-size: 4rem;
+  font-weight: 800;
+  color: var(--c-ok);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.peso-unidad {
+  font-family: var(--f-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--c-texto-dim);
+}
+
+.acciones-bascula {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-bottom: env(safe-area-inset-bottom, 0.5rem);
+}
+
+/* ── Pantalla acciones nuevo camión ─────────────────────── */
+.acciones-nuevo-camion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-bottom: env(safe-area-inset-bottom, 0.5rem);
+}
+
+/* ── Pantalla acciones genéricas ────────────────────────── */
+.acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-bottom: env(safe-area-inset-bottom, 0.5rem);
+}
+
+/* ── Pantalla confirmación ──────────────────────────────── */
+#pantalla-confirmacion {
+  background:
+    radial-gradient(ellipse at 50% 40%, #0d3320 0%, transparent 70%),
+    var(--c-fondo);
+  align-items: center;
+  justify-content: center;
+}
+
+.confirmacion-contenido {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+  width: 100%;
+}
+
+.check-icono {
+  font-size: 5rem;
+  color: var(--c-ok);
+  width: 6rem;
+  height: 6rem;
+  border: 4px solid var(--c-ok);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: aparecer 0.4s ease-out;
+}
+
+@keyframes aparecer {
+  from { transform: scale(0.5); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.confirmacion-titulo {
+  font-family: var(--f-display);
+  font-size: 2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--c-ok);
+}
+
+.resumen-pesada {
+  background: var(--c-fondo-panel);
+  border: 1px solid var(--c-borde);
+  border-radius: var(--radio);
+  padding: 1rem 1.5rem;
+  width: 100%;
+  text-align: left;
+}
+
+.resumen-fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--c-borde);
+  gap: 1rem;
+}
+
+.resumen-fila:last-child {
+  border-bottom: none;
+}
+
+.resumen-etiqueta {
+  font-size: 0.85rem;
+  color: var(--c-texto-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.resumen-valor {
+  font-family: var(--f-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--c-texto);
+  text-align: right;
+}
+
+.resumen-valor.neto {
+  color: var(--c-ok);
+  font-size: 1.5rem;
+}
+
+.confirmacion-mensaje {
+  color: var(--c-texto-dim);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ── Botones ────────────────────────────────────────────── */
+.btn {
+  border: none;
+  border-radius: var(--radio);
+  cursor: pointer;
+  font-family: var(--f-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  height: var(--btn-h);
+  letter-spacing: 0.05em;
+  padding: 0 1.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  transition: background 0.15s, opacity 0.15s, transform 0.08s;
+  user-select: none;
+  -webkit-user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.btn-grande {
+  height: var(--btn-h-lg);
+  font-size: 1.4rem;
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.btn-primario {
+  background: var(--c-primario);
+  color: var(--c-primario-txt);
+}
+
+.btn-primario:hover:not(:disabled) {
+  background: #fbb740;
+}
+
+.btn-secundario {
+  background: var(--c-secundario);
+  color: var(--c-texto);
+  border: 1px solid var(--c-borde);
+}
+
+.btn-secundario:hover:not(:disabled) {
+  background: var(--c-secundario-h);
+}
+
+.btn-terciario {
+  background: transparent;
+  color: var(--c-texto-label);
+  border: 1px solid var(--c-borde);
+}
+
+.btn-terciario:hover:not(:disabled) {
+  background: var(--c-fondo-panel);
+}
+
+.btn-peligro {
+  background: var(--c-error);
+  color: #fff;
+}
+
+.btn-peligro:hover:not(:disabled) {
+  background: #c73333;
+}
+
+/* ── Loader / Spinner ───────────────────────────────────── */
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: var(--c-texto-dim);
+  font-size: 0.95rem;
+  padding: 1rem;
+}
+
+.spinner {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--c-borde);
+  border-top-color: var(--c-primario);
+  border-radius: 50%;
+  animation: girar 0.8s linear infinite;
+  flex-shrink: 0;
+}
+
+.spinner-grande {
+  width: 3rem;
+  height: 3rem;
+  border-width: 4px;
+}
+
+@keyframes girar {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Bloque error ───────────────────────────────────────── */
+.bloque-error {
+  background: var(--c-error-fondo);
+  border: 1px solid var(--c-error);
+  border-radius: var(--radio);
+  color: var(--c-error);
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ── Mensaje genérico ───────────────────────────────────── */
+.mensaje {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radio);
+  font-size: 0.95rem;
+}
+
+.mensaje.error {
+  background: var(--c-error-fondo);
+  border: 1px solid var(--c-error);
+  color: var(--c-error);
+}
+
+.mensaje.ok {
+  background: var(--c-ok-fondo);
+  border: 1px solid var(--c-ok);
+  color: var(--c-ok);
+}
+
+/* ── Utilidades ─────────────────────────────────────────── */
+.oculto {
+  display: none !important;
+}

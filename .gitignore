@@ -1,0 +1,64 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# pytest / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# type checkers / linters
+.mypy_cache/
+.pyright/
+.ruff_cache/
+
+# =========================
+# Virtual environments
+# =========================
+.venv/
+venv/
+env/
+
+# =========================
+# IDEs / Editors
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Build / runtime artifacts
+# =========================
+.out/
+*.log
+
+# =========================
+# Local runtime data
+# =========================
+database.json
+
+# =========================
+# Generated Postman files
+# (si NO quieres versionarlos)
+# =========================
+python/.out/postman/
+
+# =========================
+# Generated signed payloads
+# =========================
+python/.out/*.json
+
+# =========================
+# Local pesadas
+# =========================
+pesadas/

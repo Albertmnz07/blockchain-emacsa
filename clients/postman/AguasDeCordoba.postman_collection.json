@@ -1,0 +1,235 @@
+{
+  "info": {
+    "name": "AguasDeCordoba — Ingest",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Colección para validar la integración EMACSA ↔ Aguas de Córdoba.\n\n## Variables de entorno\n- `baseUrl`: URL base (default `http://127.0.0.1:41337` para el `aguas-ingest mock-backend` local).\n- `signerAddress`, `signature`, `batchBody`: los rellena `aguas-ingest sign --postman-env .out/env.postman.json`.\n\n## Reintentos y `submittedAtIso`\nSi un POST real devuelve `5xx`, **reenviar los mismos bytes** con el mismo `X-Signature`. Regenerar `submittedAtIso` o volver a firmar cambia el `dataHash` → `409 batch_id_conflict`. Replay idéntico bit-a-bit → 200 con el `txHash` original (RFC 9110 §15.3.2; PR #143)."
+  },
+  "item": [
+    {
+      "name": "Dry-run — happy path",
+      "item": [
+        {
+          "name": "dry-run (env-driven happy path)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('200 OK', () => pm.response.to.have.status(200));",
+                  "const body = pm.response.json();",
+                  "pm.test('recoveredSigner matches X-Signer', () => {",
+                  "  pm.expect(body.recoveredSigner.toLowerCase())",
+                  "    .to.equal(pm.environment.get('signerAddress').toLowerCase());",
+                  "});",
+                  "pm.test('vehiclesRoot echoed', () => {",
+                  "  pm.expect(body.vehiclesRoot).to.match(/^0x[0-9a-fA-F]{64}$/);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Signature",
+                "value": "{{signature}}"
+              },
+              {
+                "key": "X-Signer",
+                "value": "{{signerAddress}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{batchBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/v1/lodos/batches/dry-run"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dry-run — error fixtures",
+      "description": "Payloads firmados por el cliente Python con mutaciones intencionales para disparar cada código de error. Los fixtures viven en `clients/postman/fixtures/`.",
+      "item": [
+        {
+          "name": "error: wrong_vehicles_root",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 400', () => pm.response.to.have.status(400));",
+                  "pm.test('error code is vehicles_root_mismatch', () => {  pm.expect(pm.response.json().error).to.equal('vehicles_root_mismatch');});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Signature",
+                "value": "0xd7894dbc86c8cde1c44ab000db6200773d8c88f8a113bcaf232cc85153df40416a897b011ba039fd30eb0ec2f1da29ba7c4552dfb6922c91188da8d857bda34f1b"
+              },
+              {
+                "key": "X-Signer",
+                "value": "0x6f4c950442e1Af093BcfF730381E63Ae9171b87a"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"batch\": {\n    \"batchId\": \"batch-postman-fixture-001\",\n    \"edar\": \"la-golondrina\",\n    \"dateIso\": \"2026-04-16\",\n    \"polielectrolito\": \"1234\",\n    \"materiaOrganicaBp\": \"5678\",\n    \"vehiclesRoot\": \"0x1111111111111111111111111111111111111111111111111111111111111111\",\n    \"submittedAtIso\": \"2026-04-16T08:00:00+00:00\"\n  },\n  \"vehicles\": [\n    {\n      \"vehicleId\": \"truck-01\",\n      \"timeIso\": \"2026-04-16T09:00:00+00:00\",\n      \"weightKg\": \"1200\"\n    },\n    {\n      \"vehicleId\": \"truck-02\",\n      \"timeIso\": \"2026-04-16T10:00:00+00:00\",\n      \"weightKg\": \"950\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/v1/lodos/batches/dry-run"
+          }
+        },
+        {
+          "name": "error: tampered_after_signing",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 401', () => pm.response.to.have.status(401));",
+                  "pm.test('error code is signer_mismatch', () => {  pm.expect(pm.response.json().error).to.equal('signer_mismatch');});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Signature",
+                "value": "0xd7894dbc86c8cde1c44ab000db6200773d8c88f8a113bcaf232cc85153df40416a897b011ba039fd30eb0ec2f1da29ba7c4552dfb6922c91188da8d857bda34f1b"
+              },
+              {
+                "key": "X-Signer",
+                "value": "0x6f4c950442e1Af093BcfF730381E63Ae9171b87a"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"batch\": {\n    \"batchId\": \"batch-postman-fixture-001\",\n    \"edar\": \"la-golondrina\",\n    \"dateIso\": \"2026-04-16\",\n    \"polielectrolito\": \"999999\",\n    \"materiaOrganicaBp\": \"5678\",\n    \"vehiclesRoot\": \"0x263fd3396e203357c97bcf2d9fc66771a3a80037c34747ff220756a5f54672a2\",\n    \"submittedAtIso\": \"2026-04-16T08:00:00+00:00\"\n  },\n  \"vehicles\": [\n    {\n      \"vehicleId\": \"truck-01\",\n      \"timeIso\": \"2026-04-16T09:00:00+00:00\",\n      \"weightKg\": \"1200\"\n    },\n    {\n      \"vehicleId\": \"truck-02\",\n      \"timeIso\": \"2026-04-16T10:00:00+00:00\",\n      \"weightKg\": \"950\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/v1/lodos/batches/dry-run"
+          }
+        },
+        {
+          "name": "error: malformed_signature",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 400', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Signature",
+                "value": "0xdeadbeef"
+              },
+              {
+                "key": "X-Signer",
+                "value": "0x6f4c950442e1Af093BcfF730381E63Ae9171b87a"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"batch\": {\n    \"batchId\": \"batch-postman-fixture-001\",\n    \"edar\": \"la-golondrina\",\n    \"dateIso\": \"2026-04-16\",\n    \"polielectrolito\": \"1234\",\n    \"materiaOrganicaBp\": \"5678\",\n    \"vehiclesRoot\": \"0x263fd3396e203357c97bcf2d9fc66771a3a80037c34747ff220756a5f54672a2\",\n    \"submittedAtIso\": \"2026-04-16T08:00:00+00:00\"\n  },\n  \"vehicles\": [\n    {\n      \"vehicleId\": \"truck-01\",\n      \"timeIso\": \"2026-04-16T09:00:00+00:00\",\n      \"weightKg\": \"1200\"\n    },\n    {\n      \"vehicleId\": \"truck-02\",\n      \"timeIso\": \"2026-04-16T10:00:00+00:00\",\n      \"weightKg\": \"950\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/v1/lodos/batches/dry-run"
+          }
+        },
+        {
+          "name": "error: bad_date_iso",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 400', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Signature",
+                "value": "0xd7894dbc86c8cde1c44ab000db6200773d8c88f8a113bcaf232cc85153df40416a897b011ba039fd30eb0ec2f1da29ba7c4552dfb6922c91188da8d857bda34f1b"
+              },
+              {
+                "key": "X-Signer",
+                "value": "0x6f4c950442e1Af093BcfF730381E63Ae9171b87a"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"batch\": {\n    \"batchId\": \"batch-postman-fixture-001\",\n    \"edar\": \"la-golondrina\",\n    \"dateIso\": \"16/04/2026\",\n    \"polielectrolito\": \"1234\",\n    \"materiaOrganicaBp\": \"5678\",\n    \"vehiclesRoot\": \"0x263fd3396e203357c97bcf2d9fc66771a3a80037c34747ff220756a5f54672a2\",\n    \"submittedAtIso\": \"2026-04-16T08:00:00+00:00\"\n  },\n  \"vehicles\": [\n    {\n      \"vehicleId\": \"truck-01\",\n      \"timeIso\": \"2026-04-16T09:00:00+00:00\",\n      \"weightKg\": \"1200\"\n    },\n    {\n      \"vehicleId\": \"truck-02\",\n      \"timeIso\": \"2026-04-16T10:00:00+00:00\",\n      \"weightKg\": \"950\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/v1/lodos/batches/dry-run"
+          }
+        }
+      ]
+    }
+  ]
+}

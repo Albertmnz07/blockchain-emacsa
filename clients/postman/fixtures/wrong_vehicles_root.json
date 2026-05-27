@@ -1,0 +1,35 @@
+{
+  "$description": "Fixture para la colección Postman. `expectation` documenta el status y el `error` code que el endpoint debería devolver.",
+  "headers": {
+    "Content-Type": "application/json",
+    "X-Signature": "0xd7894dbc86c8cde1c44ab000db6200773d8c88f8a113bcaf232cc85153df40416a897b011ba039fd30eb0ec2f1da29ba7c4552dfb6922c91188da8d857bda34f1b",
+    "X-Signer": "0x6f4c950442e1Af093BcfF730381E63Ae9171b87a"
+  },
+  "body": {
+    "batch": {
+      "batchId": "batch-postman-fixture-001",
+      "edar": "la-golondrina",
+      "dateIso": "2026-04-16",
+      "polielectrolito": "1234",
+      "materiaOrganicaBp": "5678",
+      "vehiclesRoot": "0x1111111111111111111111111111111111111111111111111111111111111111",
+      "submittedAtIso": "2026-04-16T08:00:00+00:00"
+    },
+    "vehicles": [
+      {
+        "vehicleId": "truck-01",
+        "timeIso": "2026-04-16T09:00:00+00:00",
+        "weightKg": "1200"
+      },
+      {
+        "vehicleId": "truck-02",
+        "timeIso": "2026-04-16T10:00:00+00:00",
+        "weightKg": "950"
+      }
+    ]
+  },
+  "expectation": {
+    "status": 400,
+    "error": "vehicles_root_mismatch"
+  }
+}

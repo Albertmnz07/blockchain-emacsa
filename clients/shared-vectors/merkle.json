@@ -1,0 +1,172 @@
+{
+  "$description": "Shared Merkle test vectors. Generated from backend/scripts/gen-merkle-vectors.ts — do not edit by hand. Consumed by backend and clients/python tests.",
+  "algorithm": "order-preserving binary Merkle; leaf=keccak256(abiEncode(string,string,uint256)); pair=keccak256(concat(a,b)); odd promotes unchanged; empty=bytes32(0)",
+  "cases": [
+    {
+      "name": "empty",
+      "vehicles": [],
+      "expectedRoot": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "name": "single",
+      "vehicles": [
+        {
+          "vehicleId": "truck-01",
+          "timeIso": "2026-04-15T08:00:00Z",
+          "weightKg": "1200"
+        }
+      ],
+      "expectedRoot": "0xc273e55db0641fb5b0339b9ed381f2c30ff57929aa9088263ede81b9c291b9dd"
+    },
+    {
+      "name": "pair-ordered",
+      "vehicles": [
+        {
+          "vehicleId": "truck-01",
+          "timeIso": "2026-04-15T08:00:00Z",
+          "weightKg": "1200"
+        },
+        {
+          "vehicleId": "truck-02",
+          "timeIso": "2026-04-15T09:00:00Z",
+          "weightKg": "900"
+        }
+      ],
+      "expectedRoot": "0xe4d81aaf5f006a5bd40eebb8b6db0f22549e0f08c747959168b9de35bca3d8cb"
+    },
+    {
+      "name": "odd-three-promotes-once",
+      "vehicles": [
+        {
+          "vehicleId": "truck-01",
+          "timeIso": "2026-04-15T08:00:00Z",
+          "weightKg": "1200"
+        },
+        {
+          "vehicleId": "truck-02",
+          "timeIso": "2026-04-15T09:00:00Z",
+          "weightKg": "900"
+        },
+        {
+          "vehicleId": "truck-03",
+          "timeIso": "2026-04-15T10:00:00Z",
+          "weightKg": "1500"
+        }
+      ],
+      "expectedRoot": "0x802ca7fe739f9a3bd5410079d1d3b9a688e29b3869e82eb0a919ba5babbc4c40"
+    },
+    {
+      "name": "even-four-balanced",
+      "vehicles": [
+        {
+          "vehicleId": "truck-01",
+          "timeIso": "2026-04-15T08:00:00Z",
+          "weightKg": "1200"
+        },
+        {
+          "vehicleId": "truck-02",
+          "timeIso": "2026-04-15T09:00:00Z",
+          "weightKg": "900"
+        },
+        {
+          "vehicleId": "truck-03",
+          "timeIso": "2026-04-15T10:00:00Z",
+          "weightKg": "1500"
+        },
+        {
+          "vehicleId": "truck-04",
+          "timeIso": "2026-04-15T11:00:00Z",
+          "weightKg": "800"
+        }
+      ],
+      "expectedRoot": "0x98bd84e1fa49a56c4c63a85bbd5005b9660ed8230d56474fff6bf67d9300e892"
+    },
+    {
+      "name": "odd-five-promotes-multiple-levels",
+      "vehicles": [
+        {
+          "vehicleId": "truck-01",
+          "timeIso": "2026-04-15T08:00:00Z",
+          "weightKg": "1200"
+        },
+        {
+          "vehicleId": "truck-02",
+          "timeIso": "2026-04-15T09:00:00Z",
+          "weightKg": "900"
+        },
+        {
+          "vehicleId": "truck-03",
+          "timeIso": "2026-04-15T10:00:00Z",
+          "weightKg": "1500"
+        },
+        {
+          "vehicleId": "truck-04",
+          "timeIso": "2026-04-15T11:00:00Z",
+          "weightKg": "800"
+        },
+        {
+          "vehicleId": "truck-05",
+          "timeIso": "2026-04-15T12:00:00Z",
+          "weightKg": "1100"
+        }
+      ],
+      "expectedRoot": "0x615c81256437a3e4d44f8d074b13499a94cab5550b6953803ef2b73023f23d3d"
+    },
+    {
+      "name": "realistic-ten",
+      "vehicles": [
+        {
+          "vehicleId": "truck-01",
+          "timeIso": "2026-04-15T08:00:00Z",
+          "weightKg": "1000"
+        },
+        {
+          "vehicleId": "truck-02",
+          "timeIso": "2026-04-15T09:00:00Z",
+          "weightKg": "1137"
+        },
+        {
+          "vehicleId": "truck-03",
+          "timeIso": "2026-04-15T10:00:00Z",
+          "weightKg": "1274"
+        },
+        {
+          "vehicleId": "truck-04",
+          "timeIso": "2026-04-15T11:00:00Z",
+          "weightKg": "1411"
+        },
+        {
+          "vehicleId": "truck-05",
+          "timeIso": "2026-04-15T12:00:00Z",
+          "weightKg": "1548"
+        },
+        {
+          "vehicleId": "truck-06",
+          "timeIso": "2026-04-15T13:00:00Z",
+          "weightKg": "1685"
+        },
+        {
+          "vehicleId": "truck-07",
+          "timeIso": "2026-04-15T14:00:00Z",
+          "weightKg": "1822"
+        },
+        {
+          "vehicleId": "truck-08",
+          "timeIso": "2026-04-15T15:00:00Z",
+          "weightKg": "1959"
+        },
+        {
+          "vehicleId": "truck-09",
+          "timeIso": "2026-04-15T16:00:00Z",
+          "weightKg": "2096"
+        },
+        {
+          "vehicleId": "truck-10",
+          "timeIso": "2026-04-15T17:00:00Z",
+          "weightKg": "2233"
+        }
+      ],
+      "expectedRoot": "0x6ded4953da830947123cf9ddaf5c6e1f4659383f44c99f3bbc98fb09abfccd1b"
+    }
+  ]
+}

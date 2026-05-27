@@ -1,0 +1,11 @@
+{
+  "batch": {
+    "batchId": "batch-example-empty-001",
+    "edar": "la-golondrina",
+    "dateIso": "2026-04-16",
+    "polielectrolito": "0",
+    "materiaOrganicaBp": "0",
+    "submittedAtIso": "2026-04-16T08:00:00+00:00"
+  },
+  "vehicles": []
+}

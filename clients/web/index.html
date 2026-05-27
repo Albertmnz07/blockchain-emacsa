@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0a1628" />
+  <title>Pesaje de camión — EMACSA</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════
+       PANTALLA 1 — INICIO
+  ═══════════════════════════════════════════════════ -->
+  <section id="pantalla-inicio" class="pantalla activa">
+    <div class="cabecera">
+      <div class="logo-emacsa">EMACSA</div>
+      <div class="subtitulo">EDAR · Sistema de pesaje</div>
+    </div>
+
+    <div class="contenido-centro">
+      <div class="icono-camion" aria-hidden="true">🚛</div>
+      <h1 class="titulo-principal">Pesaje<br/>de camión</h1>
+    </div>
+
+    <div class="acciones-inicio">
+      <button id="btn-nueva-pesada" class="btn btn-primario btn-grande">
+        Nueva pesada
+      </button>
+      <button id="btn-repetir-pesada" class="btn btn-secundario btn-grande">
+        Repetir pesada anterior
+      </button>
+    </div>
+
+    <div id="msg-inicio" class="mensaje oculto"></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PANTALLA 2 — SELECCIÓN DE CAMIÓN
+  ═══════════════════════════════════════════════════ -->
+  <section id="pantalla-camion" class="pantalla">
+    <header class="barra-nav">
+      <button class="btn-volver" data-volver="pantalla-inicio" aria-label="Volver">←</button>
+      <span class="paso-titulo">Seleccionar camión</span>
+      <span class="paso-num">1 / 3</span>
+    </header>
+
+    <div class="instruccion">Seleccione el camión que está en báscula:</div>
+
+    <div id="lista-camiones" class="lista-camiones">
+      <!-- Rellena JS -->
+    </div>
+
+    <div id="loader-camiones" class="loader">
+      <div class="spinner"></div>
+      <span>Cargando camiones…</span>
+    </div>
+
+    <div id="error-camiones" class="bloque-error oculto"></div>
+
+    <div class="acciones-seleccion">
+      <button id="btn-nuevo-camion" class="btn btn-secundario">
+        + Nuevo camión
+      </button>
+      <div class="fila-botones">
+        <button id="btn-volver-tarar" class="btn btn-terciario" disabled>
+          Volver a tarar
+        </button>
+        <button id="btn-continuar-camion" class="btn btn-primario" disabled>
+          Continuar →
+        </button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PANTALLA 3 — NUEVO CAMIÓN
+  ═══════════════════════════════════════════════════ -->
+  <section id="pantalla-nuevo-camion" class="pantalla">
+    <header class="barra-nav">
+      <button class="btn-volver" data-volver="pantalla-camion" aria-label="Volver">←</button>
+      <span class="paso-titulo">Nuevo camión</span>
+      <span class="paso-num">1b</span>
+    </header>
+
+    <div class="instruccion">Introduzca los datos del nuevo camión:</div>
+
+    <div class="formulario">
+      <label class="campo-label" for="input-matricula">Matrícula</label>
+      <input
+        id="input-matricula"
+        class="campo-input"
+        type="text"
+        placeholder="Ej: 1234-ABC"
+        autocapitalize="characters"
+        autocomplete="off"
+        maxlength="10"
+      />
+      <div id="error-matricula" class="campo-error oculto"></div>
+    </div>
+
+    <div class="acciones-nuevo-camion">
+      <button id="btn-tara-bascula" class="btn btn-secundario btn-grande">
+        📡 Agregar tara con báscula
+      </button>
+      <button id="btn-tara-manual" class="btn btn-terciario btn-grande">
+        ✏️ Añadir tara manual
+      </button>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PANTALLA 4 — TARA MANUAL
+  ═══════════════════════════════════════════════════ -->
+  <section id="pantalla-tara-manual" class="pantalla">
+    <header class="barra-nav">
+      <button class="btn-volver" id="btn-volver-tara" aria-label="Volver">←</button>
+      <span class="paso-titulo">Introducir tara</span>
+      <span class="paso-num"></span>
+    </header>
+
+    <div class="instruccion">Introduzca el peso en vacío del camión (tara):</div>
+
+    <div class="formulario">
+      <label class="campo-label" for="input-tara">Tara (kg)</label>
+      <input
+        id="input-tara"
+        class="campo-input campo-numerico"
+        type="number"
+        inputmode="numeric"
+        placeholder="Ej: 8500"
+        min="1"
+      />
+      <div id="error-tara" class="campo-error oculto"></div>
+    </div>
+
+    <div class="acciones">
+      <button id="btn-confirmar-tara" type="button" class="btn btn-primario btn-grande">
+        Confirmar tara
+      </button>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PANTALLA 5 — LECTURA DE BÁSCULA (REUTILIZABLE)
+       Usado para: tara automática y peso bruto
+  ═══════════════════════════════════════════════════ -->
+  <section id="pantalla-bascula" class="pantalla">
+    <header class="barra-nav">
+      <button class="btn-volver" id="btn-volver-bascula" aria-label="Volver">←</button>
+      <span id="bascula-titulo" class="paso-titulo">Lectura de báscula</span>
+      <span class="paso-num" id="bascula-paso"></span>
+    </header>
+
+    <div id="bascula-instruccion" class="instruccion">
+      Asegúrese de que el camión está completamente detenido.
+    </div>
+
+    <div class="panel-bascula">
+      <div id="bascula-estado-texto" class="bascula-estado">
+        Leyendo báscula…
+      </div>
+
+      <div id="bascula-peso-display" class="peso-display oculto">
+        <span id="bascula-peso-valor">—</span>
+        <span class="peso-unidad">kg</span>
+      </div>
+
+      <div id="bascula-loader" class="loader">
+        <div class="spinner spinner-grande"></div>
+        <span>Conectando con la báscula…</span>
+      </div>
+
+      <div id="bascula-error-detalle" class="bloque-error oculto"></div>
+    </div>
+
+    <div class="acciones-bascula">
+      <button id="btn-reintentar-bascula" class="btn btn-terciario oculto">
+        🔄 Reintentar lectura
+      </button>
+      <button id="btn-peso-manual-switch" class="btn btn-secundario oculto">
+        ✏️ Introducir manualmente
+      </button>
+      <button id="btn-confirmar-bascula" type="button" class="btn btn-primario btn-grande" disabled>
+        Confirmar peso
+      </button>
+      <button id="btn-volver-desde-error" class="btn btn-peligro btn-grande oculto">
+        ← Volver
+      </button>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PANTALLA 6 — PESO MANUAL (peso bruto)
+  ═══════════════════════════════════════════════════ -->
+  <section id="pantalla-peso-manual" class="pantalla">
+    <header class="barra-nav">
+      <button class="btn-volver" id="btn-volver-peso-manual" aria-label="Volver">←</button>
+      <span class="paso-titulo">Introducir peso</span>
+      <span class="paso-num">2 / 3</span>
+    </header>
+
+    <div class="instruccion">Introduzca el peso total del camión cargado:</div>
+
+    <div class="formulario">
+      <label class="campo-label" for="input-peso-manual">Peso bruto (kg)</label>
+      <input
+        id="input-peso-manual"
+        class="campo-input campo-numerico"
+        type="number"
+        inputmode="numeric"
+        placeholder="Ej: 20000"
+        min="1"
+      />
+      <div id="info-tara-referencia" class="campo-info"></div>
+      <div id="error-peso-manual" class="campo-error oculto"></div>
+    </div>
+
+    <div class="acciones">
+      <button id="btn-confirmar-peso-manual" type="button" class="btn btn-primario btn-grande">
+        Confirmar peso →
+      </button>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PANTALLA 7 — CONFIRMACIÓN FINAL
+  ═══════════════════════════════════════════════════ -->
+  <section id="pantalla-confirmacion" class="pantalla">
+    <div class="confirmacion-contenido">
+      <div class="check-icono" aria-hidden="true">✓</div>
+      <h2 class="confirmacion-titulo">Pesada registrada</h2>
+
+      <div id="resumen-pesada" class="resumen-pesada">
+        <!-- Rellena JS -->
+      </div>
+
+      <p class="confirmacion-mensaje">
+        La operación ha finalizado correctamente.
+      </p>
+
+      <button id="btn-finalizar-pesada" class="btn btn-primario btn-grande">
+        ✓ OK
+      </button>
+    </div>
+  </section>
+
+
+  <script src="app.js"></script>
+</body>
+</html>

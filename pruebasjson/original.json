@@ -1,0 +1,27 @@
+{
+  "batch": {
+    "batchId": "batch-example-001",
+    "edar": "la-golondrina",
+    "dateIso": "2026-04-16",
+    "polielectrolito": "1234",
+    "materiaOrganicaBp": "5678",
+    "submittedAtIso": "2026-04-16T08:00:00+00:00"
+  },
+  "vehicles": [
+    {
+      "vehicleId": "truck-01",
+      "timeIso": "2026-04-16T09:00:00+00:00",
+      "weightKg": "1200"
+    },
+    {
+      "vehicleId": "truck-02",
+      "timeIso": "2026-04-16T10:00:00+00:00",
+      "weightKg": "950"
+    },
+    {
+      "vehicleId": "truck-03",
+      "timeIso": "2026-04-16T11:30:00+00:00",
+      "weightKg": "1500"
+    }
+  ]
+}

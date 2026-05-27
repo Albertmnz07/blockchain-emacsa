@@ -1,0 +1,288 @@
+{
+  "batch": {
+    "batchId": "batch-example-001",
+    "edar": "la-golondrina",
+    "dateIso": "2026-04-16",
+    "submittedAtIso": "2026-04-16T08:00:00+00:00"
+  },
+  "vehicles": [
+    {
+      "vehicleId": "truck-01",
+      "timeIso": "2026-04-16T09:00:00+00:00",
+      "weightKg": "1200"
+    },
+    {
+      "vehicleId": "truck-02",
+      "timeIso": "2026-04-16T10:00:00+00:00",
+      "weightKg": "950"
+    },
+    {
+      "vehicleId": "truck-03",
+      "timeIso": "2026-04-16T11:30:00+00:00",
+      "weightKg": "1500"
+    }
+  ],
+  "datos": [
+    {
+      "tag": "SERVERAVSPHR.RECM_FT01.PV",
+      "descripcion": "Caudal agua bruta EDAR Cerro Muriano",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.RESC_FT01.PV",
+      "descripcion": "Caudal agua bruta EDAR Santa Cruz",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGO_FT01.PV",
+      "descripcion": "Caudal agua bruta EDAR Golondrina",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGODSH_FT03A.PV",
+      "descripcion": "Caudal fango a centrífuga 1",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGODSH_FT03B.PV",
+      "descripcion": "Caudal fango a centrífuga 2",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGODSH_FT03C.PV",
+      "descripcion": "Caudal fango a centrífuga 3",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGODSH_FT03D.PV",
+      "descripcion": "Caudal fango a centrífuga 4",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGODSH_FT05.PV",
+      "descripcion": "Caudal total fango a centrífugas",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGOFBI_FT01.PV",
+      "descripcion": "Caudal de fangos en exceso",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGOFPR_FT01.PV",
+      "descripcion": "Caudal de fangos primarios",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGOMIX_FT01.PV",
+      "descripcion": "Caudal fangos mixtos espesamiento",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGOVIN_FT04.PV",
+      "descripcion": "Caudal agua bruta salida BPF",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGOMET_FT01.PV",
+      "descripcion": "Caudal Vinazas Crudas (FQIT100.1)",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGOMET_FT02.PV",
+      "descripcion": "Caudal vinazas desviado a salida (FQIT100.2)",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGOMET_FT12.PV",
+      "descripcion": "Caudal másico de Biogás",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGOCOG_M01_CB1.PV",
+      "descripcion": "Caudal de Biogás Grupo A",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGOCOG_M02_CB1.PV",
+      "descripcion": "Caudal de Biogás Grupo B",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGOCOG_PW01.PV",
+      "descripcion": "Potencia consumida en Red",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGOCOG_M01_CP.PV",
+      "descripcion": "Potencia generada Grupo A",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGOCOG_M02_CP.PV",
+      "descripcion": "Potencia generada Grupo B",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGOMET_FT03.PV",
+      "descripcion": "",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGOVIN_FT06.PV",
+      "descripcion": "",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGOVIN_FT05.PV",
+      "descripcion": "Caudal Biogas a antorcha.",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGOMET_LT02.PV",
+      "descripcion": "Nivel inflado membrana reactor UAC.",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGOMET_TT06.PV",
+      "descripcion": "Temp. recirculación UAC",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGOMET_PHT02.PV",
+      "descripcion": "pH recircul agua residual UAC.",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGOCOG_M01_CB2.PV",
+      "descripcion": "Totalizador de Biogás Grupo A",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGOCOG_M02_CB2.PV",
+      "descripcion": "Totalizador de Biogás Grupo B",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    },
+    {
+      "tag": "SERVERAVSPHR.REGODSH_FT04.PV",
+      "descripcion": "Caudal de polielectrolitos",
+      "minimo": null,
+      "maximo": null,
+      "media": null,
+      "m24": null,
+      "integral": null
+    }
+  ]
+}
